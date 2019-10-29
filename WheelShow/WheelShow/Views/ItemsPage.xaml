@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:WheelShow="clr-namespace:WheelShow;assembly=WheelShow"
+             xmlns:effect="clr-namespace:WheelShow.Effects"
+             mc:Ignorable="d"
+             x:Class="WheelShow.Views.ItemsPage"
+             Title="WheelShow"
+             x:Name="BrowseItemsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <WheelShow:BatteryToColorConverter x:Key="BatteryToColorConverter"/>
+            <WheelShow:StateOnTimeToColorConverter x:Key="StateOnTimeToColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="btnFloating" Text="Float" Clicked="ShowFloating" />
+        <ToolbarItem x:Name="btnWL" Text="Launch" Clicked="ShowWheelLog" />
+        <ToolbarItem x:Name="btnAddWP" Text="Waypoint" Clicked="AddClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid x:Name="space" effect:LongPressedEffect.Command="{Binding OpenContextMenuCommand}" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="92" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" NumberOfTapsRequired="2" />
+        </Grid.GestureRecognizers>
+        <Grid.Effects>
+            <effect:LongPressedEffect />
+        </Grid.Effects>
+
+
+        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center" Margin="6,0,0,0">
+            <Label x:Name="txtSpeed" FontSize="66" Text="{Binding Speed, StringFormat='{0:0}'}" TextColor="{Binding Time, Converter={StaticResource StateOnTimeToColorConverter}}" d:Text="84" />
+            <Label FontSize="Large" Text="km/h" Margin="0,-18,0,0" HorizontalOptions="Center" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+            <Label x:Name="txtBattery" FontSize="44" Text="{Binding BatteryLevel, StringFormat='{0:0}'}" TextColor="{Binding ., Converter={StaticResource BatteryToColorConverter}}" d:Text="42" />
+            <Label FontSize="16" Text="%" Margin="-2,31,4,0" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+            <Label x:Name="txtDistance" FontSize="44" Text="{Binding CurrentDistance, StringFormat='{0:0.00}'}" TextColor="{Binding Time, Converter={StaticResource StateOnTimeToColorConverter}}" d:Text="17,35" />
+            <Label FontSize="16" Text="km" Margin="-2,31,4,0" />
+        </StackLayout>
+
+
+        <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+            <Label FontSize="44" Text="{Binding Voltage, StringFormat='{0:0.0}'}" TextColor="{Binding Time, Converter={StaticResource StateOnTimeToColorConverter}}" d:Text="77,2" />
+            <Label FontSize="16" Text="v" Margin="-2,31,8,0" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+            <Label FontSize="44" Text="{Binding TotalDistance, StringFormat='{0:0}'}" TextColor="{Binding Time, Converter={StaticResource StateOnTimeToColorConverter}}" d:Text="2123" />
+            <Label FontSize="16" Text="km" Margin="-2,31,5,0" />
+        </StackLayout>
+
+        <Label x:Name="lblInform" Grid.Row="3" Grid.Column="0" FontSize="18" Grid.ColumnSpan="3" Margin="20,0" Text="Это приложение было разработано для режима разделения экрана или «floating» отображения. Пожалуйста активируйте их..." />
+
+    </Grid>
+  
+</ContentPage>

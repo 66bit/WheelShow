@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="status_channel_name">WheelShow status display</string>
+  <string name="events_channel_name">WheelShow events</string>
+</resources>
