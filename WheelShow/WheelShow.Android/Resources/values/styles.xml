@@ -27,4 +27,12 @@
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4081</item>
   </style>
+
+  <style name="ShadowText">
+    <item name="android:textColor">@android:color/black</item>
+    <item name="android:shadowColor">#99ffffff</item>
+    <item name="android:shadowDx">1</item>
+    <item name="android:shadowDy">1</item>
+    <item name="android:shadowRadius">1</item>
+  </style>
 </resources>

@@ -64,10 +64,16 @@ namespace WheelShow.Droid
             _floatingView = LayoutInflater.From(this).Inflate(Resource.Layout.layout_floating_widget, null);
             SetTouchListener();
 
+            WindowManagerTypes managerType;
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+                managerType = WindowManagerTypes.ApplicationOverlay;
+            else
+                managerType = WindowManagerTypes.Phone;
+
             _layoutParams = new WindowManagerLayoutParams(
                 ViewGroup.LayoutParams.WrapContent,
                 ViewGroup.LayoutParams.WrapContent,
-                WindowManagerTypes.ApplicationOverlay,
+                managerType,
                 WindowManagerFlags.NotFocusable,
                 Format.Translucent)
             {

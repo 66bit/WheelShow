@@ -19,6 +19,8 @@ namespace WheelShow.Droid
     [Activity(Label = "WheelShow", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        bool readyToExit = false;
+
         public static FloatingWidgetService FloatingWidgetService { get; internal set; }
         public NotificationHelper NotificationHelper { get; private set; }
 
@@ -66,6 +68,23 @@ namespace WheelShow.Droid
                 if (Android.Provider.Settings.CanDrawOverlays(BaseContext))
                     StartFloatingService();
             }
+        }
+
+        public override void OnBackPressed()
+        {
+            if (readyToExit)
+            {
+                base.OnBackPressed();
+                Java.Lang.JavaSystem.Exit(0);
+                return;
+            }
+
+            this.readyToExit = true;
+            Toast.MakeText(this, "Нажмите кнопку Назад еще раз чтобы выйти из приложения и скрыть виджет", ToastLength.Short).Show();
+
+            new Handler().PostDelayed(() => {
+                readyToExit = false;
+            }, 2000);
         }
     }
 }
